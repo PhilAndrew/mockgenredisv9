@@ -1,0 +1,52 @@
+####
+## Define an argument so they Golang runtime
+## version can be specified dynamically when
+## built
+####
+ARG GOLANG_VERSION
+
+####
+## Spawns a container instance and installs the
+## required dependencies to test the code base
+####
+FROM golang:$GOLANG_VERSION-alpine
+
+####
+## Declares build arguments required to setup
+## authentication for the private GitHub
+## repositories containing Family Zone go modules
+####
+ARG GITHUB_USER
+ARG GITHUB_TOKEN
+
+####
+## Installs requirements for the build
+## of the application
+####
+RUN apk add --no-cache git ca-certificates
+
+####
+## Configures git to use the GitHub auth
+## details provided during the container build
+## for authentication to github.com
+####
+RUN git config --system url."https://${GITHUB_USER}:${GITHUB_TOKEN}@github.com".insteadof "https://github.com"
+
+####
+## Copies the application source into the container
+## and sets the current working dirtory there
+####
+COPY ./ /build
+WORKDIR /build
+
+####
+## Disable the go compiler from trying
+## to invoke cgo when testing
+####
+ENV CGO_ENABLED 0
+
+####
+## Sets the application to run when the
+## container is executed
+####
+CMD ["go", "test", "-cover", "./..."]
