@@ -4,10 +4,10 @@ go 1.20
 
 require (
 	github.com/bsm/redislock v0.9.4
-	github.com/golang/mock v1.6.0
 	github.com/onsi/ginkgo v1.16.5
 	github.com/onsi/gomega v1.24.1
 	github.com/redis/go-redis/v9 v9.0.5
+	go.uber.org/mock v0.3.0
 )
 
 require (

@@ -4,10 +4,10 @@ import (
 	"context"
 	"encoding/binary"
 
-	"github.com/golang/mock/gomock"
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"
 	"github.com/redis/go-redis/v9"
+	gomock "go.uber.org/mock/gomock"
 )
 
 var _ = Describe("Redis Cache V2", func() {
