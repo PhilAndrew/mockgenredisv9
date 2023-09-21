@@ -33,7 +33,7 @@ var _ = Describe("Redis Cache V2", func() {
 
 		It("should successfully call MGet", func() {
 
-			mockRedis.EXPECT().MGet(gomock.Any(), gomock.Any(), gomock.Any()).DoAndReturn(func(context context.Context, cacheKey string, deleteKey string) *redis.SliceCmd {
+			mockRedis.EXPECT().MGet(gomock.Any(), gomock.Any()).DoAndReturn(func(context context.Context, args ...string) *redis.SliceCmd {
 				defer GinkgoRecover()
 				buf := make([]byte, 8)
 				binary.BigEndian.PutUint64(buf, uint64(100))
